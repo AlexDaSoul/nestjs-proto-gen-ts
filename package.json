@@ -18,7 +18,8 @@
     },
     "files": [
         "bin/",
-        "dist/"
+        "dist/",
+        "templates/"
     ],
     "bin": {
         "tsproto": "bin/cli"
