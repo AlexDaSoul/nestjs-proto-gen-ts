@@ -1,13 +1,14 @@
 import { usage } from 'yargs';
 import { red } from 'chalk';
 
-import { IGenOptions } from '../types';
 import { options } from '../options';
 import { Compiller } from '../compiller';
 
 /** Set CLI */
 export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
+    /* eslint-disable @typescript-eslint/no-var-requires */
     .version(require(`${ __dirname }/../../package.json`).version)
+    /* eslint-enable @typescript-eslint/no-var-requires */
     .alias('version', 'v')
     .help('help')
     .alias('help', 'h')

@@ -3,7 +3,7 @@ syntax = "proto3";
 package test.proto;
 
 import "google/protobuf/timestamp.proto";
-import "tests.enum.proto";
+import "test.enum.proto";
 
 // Test comment
 service Test {
