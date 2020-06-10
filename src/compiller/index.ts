@@ -106,14 +106,14 @@ export class Compiller {
         this.walkTree(root);
 
         const results = compile(tmpl)(root);
-        const outputFile = this.options.output ? join(this.options.output, file.replace(/^.+?[/\\]/, '')) : dirname(file);
+        const outputFile = this.options.output ? join(this.options.output, file.replace(/^.+?[/\\]/, '')) : file;
         const outputPath = join(dirname(outputFile), `${ basename(file, extname(file)) }.ts`);
 
         outputFileSync(outputPath, results, 'utf8');
     }
 
     private generate(path: string, pkg: string): void {
-        const hbTemplate = resolve(process.cwd(), this.options.template);
+        const hbTemplate = resolve(__dirname, '../..', this.options.template);
 
         if (!existsSync(hbTemplate)) {
             throw new Error(`Template ${hbTemplate} is not found`)
