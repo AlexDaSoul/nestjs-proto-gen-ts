@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package test.proto;
+
+import "google/protobuf/timestamp.proto";
+import "tests.enum.proto";
+
+// Test comment
+service Test {
+    // Test comment
+    // Test comment
+    rpc TestRpc(TestRequest) returns (TestResponse);
+}
+
+// Test comment
+// ----------------------------------------------------------------------
+
+// Test comment
+message TestRequest {
+    // Test comment
+    repeated string field1 = 1;  // Test comment
+    // Test comment
+    testenum.TestEnum field2 = 2;  // Test comment
+    // Test comment
+    google.protobuf.Timestamp field3 = 3;  // Test comment
+    // Test comment
+    int32 limitQty = 5; // Test comment
+}
+
+// Test comment
+message TestResponse {
+}

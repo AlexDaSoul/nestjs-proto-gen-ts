@@ -1,0 +1,96 @@
+version: 2
+
+aliases:
+  - &restore-cache
+    restore_cache:
+      key: dependency-cache-{{ checksum "package.json" }}
+  - &install-deps
+    run:
+      name: Install dependencies
+      command: npm ci
+  - &build-packages
+    run:
+      name: Build
+      command: npm run build
+  - &proto-gen
+    run:
+      name: Generate ts from proto
+      command: npm run proto:gen
+  - &run-unit-tests
+    run:
+      name: Test
+      command: npm run test
+  - &update-npm
+    run:
+      name: Update NPM version
+      command: 'sudo npm install -g npm@latest'
+  - &save-cache
+    save_cache:
+      key: dependency-cache-{{ checksum "package.json" }}
+      paths:
+        - ./node_modules
+
+jobs:
+  build:
+    working_directory: ~/nestjs-proto-gen-ts
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - *update-npm
+      - *restore-cache
+      - *install-deps
+      - *save-cache
+      - *build-packages
+
+  proto-gen:
+    working_directory: ~/nestjs-proto-gen-ts
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - *update-npm
+      - *restore-cache
+      - *install-deps
+      - *save-cache
+      - *build-packages
+      - *proto-gen
+
+  test:
+    working_directory: ~/nestjs-proto-gen-ts
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - *restore-cache
+      - *install-deps
+      - *build-packages
+      - *proto-gen
+      - *run-unit-tests
+      - run:
+          name: Run test
+          command: npm run test
+
+  lint:
+    working_directory: ~/nestjs-proto-gen-ts
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - *restore-cache
+      - *install-deps
+      - run:
+          name: Lint
+          command: npm run lint
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - lint
+      - build
+      - proto-gen
+      - test:
+          requires:
+            - proto-gen
+            - build
