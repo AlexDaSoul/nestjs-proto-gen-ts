@@ -94,3 +94,20 @@ workflows:
           requires:
             - proto-gen
             - build
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - echo Syncing to $LIVE_BRANCH on GitHub...
+      - git config --global user.name AlexDaSoul
+      - git config --global user.email alexdasoul@gmail.com
+      - git add --force dist types
+      - git stash save
+      - git checkout $LIVE_BRANCH
+      - git merge master --no-commit
+      - git checkout stash -- .
+      - git commit --allow-empty --message "Automatic Deployment [skip ci]"
+      - git push
+      - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+      - npm publish || true

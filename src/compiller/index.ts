@@ -1,6 +1,6 @@
 import { Root, common, util, Enum, } from 'protobufjs';
 import { resolve, basename, extname, join, dirname } from 'path';
-import { existsSync, readFileSync, writeFileSync, readdirSync, lstatSync } from 'fs';
+import { outputFileSync, existsSync, readFileSync, readdirSync, lstatSync } from 'fs-extra';
 import { compile } from 'handlebars';
 import * as chalk from 'chalk';
 
@@ -93,7 +93,7 @@ export class Compiller {
         }
     }
 
-    private output(file: string, tmpl: string): void {
+    private output(file: string, pkg: string, tmpl: string): void {
         const root = new Root();
 
         this.resolveRootPath(root);
@@ -106,12 +106,13 @@ export class Compiller {
         this.walkTree(root);
 
         const results = compile(tmpl)(root);
-        const outputPath = join(dirname(file), `${ basename(file, extname(file)) }.ts`);
+        const outputFile = this.options.output ? join(this.options.output, file.replace(/^.+?[/\\]/, '')) : dirname(file);
+        const outputPath = join(dirname(outputFile), `${ basename(file, extname(file)) }.ts`);
 
-        writeFileSync(outputPath, results, 'utf8');
+        outputFileSync(outputPath, results, 'utf8');
     }
 
-    private generate(path: string): void {
+    private generate(path: string, pkg: string): void {
         const hbTemplate = resolve(process.cwd(), this.options.template);
 
         if (!existsSync(hbTemplate)) {
@@ -124,7 +125,7 @@ export class Compiller {
             console.log(chalk.blueBright(`-- found: `) + chalk.gray(path));
         }
 
-        this.output(path, tmpl);
+        this.output(path, pkg, tmpl);
     }
 
     private getProtoFiles(pkg: string): void {
@@ -145,7 +146,7 @@ export class Compiller {
             if (stat.isDirectory()) {
                 this.getProtoFiles(filename);
             } else if (filename.indexOf(this.options.target.join()) > -1) {
-                this.generate(filename);
+                this.generate(filename, pkg);
             }
         }
     }

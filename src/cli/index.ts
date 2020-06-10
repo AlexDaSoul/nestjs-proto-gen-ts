@@ -18,6 +18,17 @@ export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
         type: 'array',
         normalize: true,
     })
+    .option('output', {
+        alias: 'o',
+        describe: 'Path to output directory',
+        type: 'string',
+        normalize: true,
+    })
+    .option('template', {
+        describe: 'Handlebar\'s template for output',
+        default: options.template,
+        type: 'string',
+    })
     .option('target', {
         alias: 't',
         describe: 'Proto files',

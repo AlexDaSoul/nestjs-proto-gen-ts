@@ -1,6 +1,8 @@
 export interface IGenOptions {
     // Path to root directory
     path: string[];
+    // Path to output directory
+    output: string;
     // Proto files
     target: string[];
     // Ignore file or directories
