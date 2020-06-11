@@ -1,4 +1,4 @@
-# Protobuf Templates
+# Nest.js TypeScripn generator from Protobuf
 Generate TypeScript code from proto files.
 
 [![Circle CI](https://circleci.com/gh/AlexDaSoul/nestjs-proto-gen-ts.svg?style=shield)](https://circleci.com/gh/AlexDaSoul/nestjs-proto-gen-ts/)

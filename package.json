@@ -43,7 +43,6 @@
         "nest.js"
     ],
     "devDependencies": {
-        "@grpc/grpc-js": "^1.0.5",
         "@types/node": "^14.0.11",
         "@types/protobufjs": "^6.0.0",
         "@types/supertest": "^2.0.8",
@@ -52,6 +51,7 @@
         "eslint": "^7.2.0",
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-import": "^2.20.2",
+        "grpc": "^1.24.3",
         "jest": "^25.1.0",
         "prettier": "^2.0.5",
         "rimraf": "^3.0.2",
