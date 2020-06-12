@@ -94,3 +94,15 @@ jobs:
           command: |
             npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
             npm publish
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - lint
+      - build
+      - proto-gen
+      - test:
+          requires:
+            - build
+            - proto-gen
