@@ -1,32 +1,30 @@
 syntax = "proto3";
 
-package test.proto;
+package multipackage.proto;
 
 import "google/protobuf/timestamp.proto";
-import "test.enum.proto";
+import "multipackage.enum.proto";
 
 // Test comment
-service Test {
+service Multipackage {
     // Test comment
     // Test comment
-    rpc TestRpc(TestRequest) returns (TestResponse);
+    rpc MultipackageRpc(MultipackageRequest) returns (MultipackageResponse);
 }
 
 // Test comment
 // ----------------------------------------------------------------------
 
 // Test comment
-message TestRequest {
+message MultipackageRequest {
     // Test comment
     repeated string field1 = 1;  // Test comment
     // Test comment
-    testenum.TestEnum field2 = 2;  // Test comment
+    multipackageenum.MultipackageEnum field2 = 2;  // Test comment
     // Test comment
     google.protobuf.Timestamp field3 = 3;  // Test comment
-    // Test comment
-    int32 limitQty = 5; // Test comment
 }
 
 // Test comment
-message TestResponse {
+message MultipackageResponse {
 }

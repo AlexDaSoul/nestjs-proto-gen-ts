@@ -7,13 +7,6 @@
         "experimentalDecorators": true,
         "target": "es2017",
         "sourceMap": true,
-        "outDir": "./dist",
-        "baseUrl": "./src",
-        "incremental": true
-    },
-    "exclude": [
-        "node_modules",
-        "dist",
-        "test"
-    ]
+        "baseUrl": "./test"
+    }
 }

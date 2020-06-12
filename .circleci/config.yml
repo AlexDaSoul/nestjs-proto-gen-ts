@@ -92,8 +92,8 @@ workflows:
       - proto-gen
       - test:
           requires:
-            - proto-gen
             - build
+            - proto-gen
 
 deployment:
   staging:

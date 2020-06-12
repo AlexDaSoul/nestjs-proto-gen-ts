@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package testenum;
+package multipackageenum;
 
 // ResolutionType
 // Test enum
-enum TestEnum {
+enum MultipackageEnum {
     DEFAULT = 0;  // Default value
     M1 = 10;      // 1 minute
     M2 = 20;      // 2 minutes
