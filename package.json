@@ -1,6 +1,6 @@
 {
     "name": "nestjs-proto-gen-ts",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Generate TypeScript interfaces for Nest.js gRPC from proto files",
     "homepage": "https://github.com/AlexDaSoul/nestjs-proto-gen-ts",
     "author": "Alex Dukhnovskiy <alexdasoul@gmail.com>",
