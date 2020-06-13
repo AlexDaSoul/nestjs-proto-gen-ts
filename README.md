@@ -15,6 +15,93 @@ The package does not rely on the `protoc' compiler and generates TypeScript code
 $ npm install nestjs-proto-gen-ts
 ```
 
+## Example
+Protobuf file hero-proto/hero.proto:
+```proto
+syntax = "proto3";
+
+package hero;
+
+service HeroesService {
+  rpc FindOne (HeroById) returns (Hero) {}
+}
+
+message HeroById {
+  int32 id = 1;
+}
+
+message Hero {
+  int32 id = 1;
+  string name = 2;
+}
+```
+
+Generate interfaces:
+```bash
+$ tsproto --path ./hero-proto
+```
+
+Output:
+```typescript
+import { Observable } from 'rxjs';
+import { Metadata } from 'grpc';
+
+export namespace hero {
+    export interface HeroesService {
+        findOne(data: HeroById, metadata?: Metadata): Observable<Hero>;
+    }
+    export interface HeroById {
+        id?: number;
+    }
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+}
+```
+
+Controller:
+```typescript
+...
+import { hero } from 'hero-proto/hero';
+
+type HeroById = hero.HeroById;
+
+@Controller()
+export class HeroesController implements hero.HeroesService {
+  @GrpcMethod('HeroesService', 'FindOne')
+  findOne(data: HeroById, meta: Metadata): Observable<hero.Hero> {
+    const items = [
+      { id: 1, name: 'John' },
+      { id: 2, name: 'Doe' },
+    ];
+
+    return items.find(({ id }) => id === data.id);
+  }
+}
+```
+
+Client:
+```typescript
+...
+import { hero } from 'hero-proto/hero';
+
+@Injectable()
+export class AppService implements OnModuleInit {
+  private heroesService: hero.HeroesService;
+
+  constructor(@Inject('HERO_PACKAGE') private client: ClientGrpc) {}
+
+  onModuleInit() {
+    this.heroesService = this.client.getService<hero.HeroesService>('HeroesService');
+  }
+
+  getHero(): Observable<string> {
+    return this.heroesService.findOne({ id: 1 });
+  }
+}
+```
+
 ## Usage
 Base usage:
 ```bash
