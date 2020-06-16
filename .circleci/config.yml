@@ -83,18 +83,6 @@ jobs:
           name: Lint
           command: npm run lint
 
-  publish:
-    working_directory: ~/nestjs-proto-gen-ts
-    docker:
-      - image: circleci/node:12
-    steps:
-      - checkout
-      - run:
-          name: Publish to NPM
-          command: |
-            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-            npm publish
-
 workflows:
   version: 2
   build-and-test:
@@ -106,9 +94,3 @@ workflows:
           requires:
             - build
             - proto-gen
-  tagged-build:
-    jobs:
-      - publish:
-          filters:
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
