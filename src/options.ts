@@ -8,5 +8,5 @@ export const options: IGenOptions = {
     template: 'templates/nestjs-grpc.hbs',
     keepCase: false,
     comments: true,
-    verbose: true,
+    verbose: true
 };

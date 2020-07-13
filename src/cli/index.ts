@@ -7,7 +7,7 @@ import { Compiller } from '../compiller';
 /** Set CLI */
 export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
     /* eslint-disable @typescript-eslint/no-var-requires */
-    .version(require(`${ __dirname }/../../package.json`).version)
+    .version(require(`${__dirname}/../../package.json`).version)
     /* eslint-enable @typescript-eslint/no-var-requires */
     .alias('version', 'v')
     .help('help')
@@ -16,41 +16,41 @@ export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
         alias: 'p',
         describe: 'Path to root directory',
         type: 'array',
-        normalize: true,
+        normalize: true
     })
     .option('output', {
         alias: 'o',
         describe: 'Path to output directory',
         type: 'string',
-        normalize: true,
+        normalize: true
     })
     .option('template', {
-        describe: 'Handlebar\'s template for output',
+        describe: "Handlebar's template for output",
         default: options.template,
-        type: 'string',
+        type: 'string'
     })
     .option('target', {
         alias: 't',
         describe: 'Proto files',
         default: options.target,
-        type: 'array',
+        type: 'array'
     })
     .option('ignore', {
         alias: 'i',
         describe: 'Ignore file or directories',
         default: options.ignore,
-        type: 'array',
+        type: 'array'
     })
     .option('comments', {
         alias: 'c',
         describe: 'Add comments from proto',
         default: options.comments,
-        type: 'boolean',
+        type: 'boolean'
     })
     .option('verbose', {
         describe: 'Log all output to console',
         default: options.verbose,
-        type: 'boolean',
+        type: 'boolean'
     })
     .demandOption(['path'], red.bold('Please provide both run and [path] argument to work with this tool'))
     .exitProcess(true)

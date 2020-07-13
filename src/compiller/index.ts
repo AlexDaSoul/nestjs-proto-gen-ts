@@ -1,4 +1,4 @@
-import { Root, common, util, Enum, } from 'protobufjs';
+import { Root, common, util, Enum } from 'protobufjs';
 import { resolve, basename, extname, join, dirname } from 'path';
 import { outputFileSync, existsSync, readFileSync, readdirSync, lstatSync } from 'fs-extra';
 import { compile } from 'handlebars';
@@ -15,23 +15,24 @@ import { IGenOptions } from '../types';
 
 /** Set Compiller */
 export class Compiller {
-    constructor(private readonly options: IGenOptions) {
-    }
+    constructor(private readonly options: IGenOptions) {}
 
     private resolveRootPath(root: Root): void {
         const paths = this.options.path;
         const length = paths.length;
 
         // Search include paths when resolving imports
-        root.resolvePath = function (origin, target) {
-            let resolved = util.path.resolve(
-                util.path.normalize(origin),
-                util.path.normalize(target), true);
+        root.resolvePath = (origin, target) => {
+            let resolved = util.path.resolve(util.path.normalize(origin), util.path.normalize(target), false);
 
             const idx = resolved.lastIndexOf('google/protobuf/');
 
             if (idx > -1) {
                 const altname = resolved.substring(idx);
+
+                if (resolved.match(/google\/protobuf\//g).length > 1) {
+                    resolved = resolved.split('google/protobuf')[0] + util.path.normalize(target);
+                }
 
                 if (altname in common) {
                     resolved = altname;
@@ -56,19 +57,18 @@ export class Compiller {
 
     private walkTree(item: Root | any): void {
         if (item.nested) {
-            Object.keys(item.nested).forEach(key => {
+            Object.keys(item.nested).forEach((key) => {
                 this.walkTree(item.nested[key]);
             });
         }
 
         if (item.fields) {
-            Object.keys(item.fields).forEach(key => {
+            Object.keys(item.fields).forEach((key) => {
                 const field = item.fields[key];
 
                 if (field.resolvedType) {
                     // Record the field's parent name
                     if (field.resolvedType.parent) {
-
                         // Abuse the options object!
                         if (!field.options) {
                             field.options = {};
@@ -107,7 +107,7 @@ export class Compiller {
 
         const results = compile(tmpl)(root);
         const outputFile = this.options.output ? join(this.options.output, file.replace(/^.+?[/\\]/, '')) : file;
-        const outputPath = join(dirname(outputFile), `${ basename(file, extname(file)) }.ts`);
+        const outputPath = join(dirname(outputFile), `${basename(file, extname(file))}.ts`);
 
         outputFileSync(outputPath, results, 'utf8');
     }
@@ -116,7 +116,7 @@ export class Compiller {
         const hbTemplate = resolve(__dirname, '../..', this.options.template);
 
         if (!existsSync(hbTemplate)) {
-            throw new Error(`Template ${hbTemplate} is not found`)
+            throw new Error(`Template ${hbTemplate} is not found`);
         }
 
         const tmpl = readFileSync(hbTemplate, 'utf8');
@@ -130,7 +130,7 @@ export class Compiller {
 
     private getProtoFiles(pkg: string): void {
         if (!existsSync(pkg)) {
-            throw new Error(`Directory ${pkg} is not exist`)
+            throw new Error(`Directory ${pkg} is not exist`);
         }
 
         const files = readdirSync(pkg);
@@ -152,11 +152,10 @@ export class Compiller {
     }
 
     public compile(): void {
-        this.options.path.forEach(pkg => {
+        this.options.path.forEach((pkg) => {
             if (this.options.path.length === 1) {
                 this.getProtoFiles(pkg);
             }
         });
     }
 }
-

@@ -42,31 +42,31 @@ export namespace multipackageenum {
     // ResolutionType
     // Test enum
     export enum MultipackageEnum {
-        // Default value
+        /* Default value */
         DEFAULT = 0,
-        // Default value
+        /* Default value */
         M1 = 10,
-        // 1 minute
+        /* 1 minute */
         M2 = 20,
-        // 2 minutes
+        /* 2 minutes */
         M5 = 30,
-        // 5 minutes
+        /* 5 minutes */
         M10 = 40,
-        // 10 minutes
+        /* 10 minutes */
         M15 = 50,
-        // 15 minutes
+        /* 15 minutes */
         M30 = 60,
-        // 30 minutes
+        /* 30 minutes */
         H1 = 70,
-        // 1 hour
+        /* 1 hour */
         H2 = 80,
-        // 2 hours
+        /* 2 hours */
         H4 = 90,
-        // 4 hours
+        /* 4 hours */
         D = 100,
-        // 1 day
+        /* 1 day */
         W = 110,
-        // 1 week
+        /* 1 week */
         MN = 120,
     }
 }
