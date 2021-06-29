@@ -113,7 +113,7 @@ export class Compiller {
     }
 
     private generate(path: string, pkg: string): void {
-        const hbTemplate = resolve(__dirname, '../..', this.options.template);
+        const hbTemplate = resolve(process.cwd(), this.options.template);
 
         if (!existsSync(hbTemplate)) {
             throw new Error(`Template ${hbTemplate} is not found`);
