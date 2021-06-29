@@ -16,7 +16,6 @@ export namespace google {
         export interface FileDescriptorProto {
             // file name, relative to root of source tree
             name?: string;
-            // file name, relative to root of source tree
             package?: string;
             // Names of files imported by this file.
             dependency?: string[];
@@ -67,7 +66,7 @@ export namespace google {
             export interface ReservedRange {
                 // Inclusive.
                 start?: number;
-                // Inclusive.
+                // Exclusive.
                 end?: number;
             }
         }
@@ -107,38 +106,37 @@ export namespace google {
         export namespace FieldDescriptorProto {
             // Describes a field within a message.
             export enum Type {
-                /* 0 is reserved for errors.
-            // Order is weird for historical reasons. */
+                // 0 is reserved for errors.
+            // Order is weird for historical reasons.
                 TYPE_DOUBLE = 1,
                 TYPE_FLOAT = 2,
-                /* Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
-            // negative values are likely. */
+                // Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
+            // negative values are likely.
                 TYPE_INT64 = 3,
                 TYPE_UINT64 = 4,
-                /* Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
-            // negative values are likely. */
+                // Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
+            // negative values are likely.
                 TYPE_INT32 = 5,
                 TYPE_FIXED64 = 6,
                 TYPE_FIXED32 = 7,
                 TYPE_BOOL = 8,
                 TYPE_STRING = 9,
-                /* Tag-delimited aggregate. */
+                // Tag-delimited aggregate.
                 TYPE_GROUP = 10,
-                /* Tag-delimited aggregate. */
                 TYPE_MESSAGE = 11,
-                /* New in version 2. */
+                // New in version 2.
                 TYPE_BYTES = 12,
                 TYPE_UINT32 = 13,
                 TYPE_ENUM = 14,
                 TYPE_SFIXED32 = 15,
                 TYPE_SFIXED64 = 16,
-                /* Uses ZigZag encoding. */
+                // Uses ZigZag encoding.
                 TYPE_SINT32 = 17,
-                /* Uses ZigZag encoding. */
+                // Uses ZigZag encoding.
                 TYPE_SINT64 = 18,
             }
             export enum Label {
-                /* 0 is reserved for errors */
+                // 0 is reserved for errors
                 LABEL_OPTIONAL = 1,
                 LABEL_REQUIRED = 2,
                 LABEL_REPEATED = 3,
@@ -247,13 +245,12 @@ export namespace google {
         export namespace FileOptions {
             // Generated classes can be optimized for speed or code size.
             export enum OptimizeMode {
-                /* Generate complete code for parsing, serialization,
-            // etc. */
+                // Generate complete code for parsing, serialization,
+            // etc.
                 SPEED = 1,
-                /* Generate complete code for parsing, serialization,
-            // etc. */
+                // Use ReflectionOps to implement these methods.
                 CODE_SIZE = 2,
-                /* Use ReflectionOps to implement these methods. */
+                // Generate code using MessageLite and the lite runtime.
                 LITE_RUNTIME = 3,
             }
         }
@@ -374,17 +371,17 @@ export namespace google {
         }
         export namespace FieldOptions {
             export enum CType {
-                /* Default mode. */
+                // Default mode.
                 STRING = 0,
                 CORD = 1,
                 STRING_PIECE = 2,
             }
             export enum JSType {
-                /* Use the default type. */
+                // Use the default type.
                 JS_NORMAL = 0,
-                /* Use JavaScript strings. */
+                // Use JavaScript strings.
                 JS_STRING = 1,
-                /* Use JavaScript numbers. */
+                // Use JavaScript numbers.
                 JS_NUMBER = 2,
             }
         }
@@ -438,9 +435,9 @@ export namespace google {
             // methods, and PUT verb for idempotent methods instead of the default POST.
             export enum IdempotencyLevel {
                 IDEMPOTENCY_UNKNOWN = 0,
-                /* implies idempotent */
+                // implies idempotent
                 NO_SIDE_EFFECTS = 1,
-                /* implies idempotent */
+                // idempotent, but may have side effects
                 IDEMPOTENT = 2,
             }
         }
