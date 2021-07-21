@@ -44,7 +44,7 @@ $ tsproto --path ./hero-proto
 Output:
 ```typescript
 import { Observable } from 'rxjs';
-import { Metadata } from 'grpc';
+import { Metadata } from '@grpc/grpc-js';
 
 export namespace hero {
     export interface HeroesService {
