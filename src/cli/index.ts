@@ -7,7 +7,7 @@ import { Compiller } from '../compiller';
 /** Set CLI */
 export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
     /* eslint-disable @typescript-eslint/no-var-requires */
-    .version(require(`${process.cwd()}/package.json`).version)
+    .version(require(`${__dirname}/../../package.json`).version)
     /* eslint-enable @typescript-eslint/no-var-requires */
     .alias('version', 'v')
     .help('help')
