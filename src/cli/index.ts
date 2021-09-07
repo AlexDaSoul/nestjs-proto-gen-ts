@@ -47,12 +47,6 @@ export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
         default: options.comments,
         type: 'boolean'
     })
-   .option('keepCase', {
-        alias: 'kc',
-        describe: 'allow keepCase',
-        default: options.keepCase,
-        type: 'boolean'
-    })
     .option('verbose', {
         describe: 'Log all output to console',
         default: options.verbose,
