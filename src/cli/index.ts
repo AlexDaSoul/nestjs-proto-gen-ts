@@ -27,7 +27,6 @@ export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
     })
     .option('template', {
         describe: "Handlebar's template for output",
-        default: options.template,
         type: 'string'
     })
     .option('target', {
