@@ -1,6 +1,6 @@
-import { Root, common, util, Enum } from 'protobufjs';
-import { resolve, basename, extname, join, dirname } from 'path';
-import { outputFileSync, existsSync, readFileSync, readdirSync, lstatSync } from 'fs-extra';
+import { common, Enum, Root, util } from 'protobufjs';
+import { basename, dirname, extname, isAbsolute, join, resolve } from 'path';
+import { existsSync, lstatSync, outputFileSync, readdirSync, readFileSync } from 'fs-extra';
 import { compile } from 'handlebars';
 import * as chalk from 'chalk';
 
@@ -16,6 +16,14 @@ import { IGenOptions } from '../types';
 /** Set Compiller */
 export class Compiller {
     constructor(private readonly options: IGenOptions) {}
+
+    public compile(): void {
+        this.options.path.forEach((pkg) => {
+            if (this.options.path.length === 1) {
+                this.getProtoFiles(pkg);
+            }
+        });
+    }
 
     private resolveRootPath(root: Root): void {
         const paths = this.options.path;
@@ -113,7 +121,12 @@ export class Compiller {
     }
 
     private generate(path: string, pkg: string): void {
-        const hbTemplate = resolve(__dirname, '../..', this.options.template);
+        let hbTemplate = resolve(__dirname, '../..', this.options.template);
+
+        //If absolute path we will know have custom template option
+        if (isAbsolute(path)) {
+            hbTemplate = path;
+        }
 
         if (!existsSync(hbTemplate)) {
             throw new Error(`Template ${hbTemplate} is not found`);
@@ -149,13 +162,5 @@ export class Compiller {
                 this.generate(filename, pkg);
             }
         }
-    }
-
-    public compile(): void {
-        this.options.path.forEach((pkg) => {
-            if (this.options.path.length === 1) {
-                this.getProtoFiles(pkg);
-            }
-        });
     }
 }
