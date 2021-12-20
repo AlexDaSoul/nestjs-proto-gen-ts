@@ -1,5 +1,6 @@
 import { usage } from 'yargs';
 import { red } from 'chalk';
+import { resolve } from 'path';
 
 import { options } from '../options';
 import { Compiller } from '../compiller';
@@ -26,7 +27,6 @@ export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
     })
     .option('template', {
         describe: "Handlebar's template for output",
-        default: options.template,
         type: 'string'
     })
     .option('target', {
@@ -55,6 +55,10 @@ export const cli = usage('Extract and merge locale files.\nUsage: $0 [options]')
     .demandOption(['path'], red.bold('Please provide both run and [path] argument to work with this tool'))
     .exitProcess(true)
     .parse(process.argv);
+
+if (cli?.template) {
+    cli.template = resolve(process.cwd(), cli.template);
+}
 
 /**
  * Init Compiller
