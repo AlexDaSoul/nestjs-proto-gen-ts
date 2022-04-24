@@ -5,7 +5,7 @@ Generate TypeScript code from proto files.
 [![npm](https://img.shields.io/npm/dm/nestjs-proto-gen-ts)](https://www.npmjs.com/package/nestjs-proto-gen-ts)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
-This package uses the [protobufjs](http://dcode.io/protobuf.js) library to auto-generate TypeScript or JavaScript code using [handlebars](https://handlebarsjs.com/) templates.
+This package uses the [protobufjs](https://protobufjs.github.io/protobuf.js/) library to auto-generate TypeScript or JavaScript code using [handlebars](https://handlebarsjs.com/) templates.
 
 The package does not rely on the `protoc' compiler and generates TypeScript code directly, rather than outputting types from the generated JavaScript code. This makes it easy to use the automatically generated code because it does not need to be compiled at the time of creation.
 
