@@ -22,7 +22,6 @@ export namespace multipackage {
             // Test comment
             field1?: string[];
             // Test comment
-        // Test comment
             field2?: multipackageenum.MultipackageEnum;
             // Test comment
             field3?: google.protobuf.Timestamp;

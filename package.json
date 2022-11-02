@@ -1,6 +1,6 @@
 {
     "name": "nestjs-proto-gen-ts",
-    "version": "1.0.20",
+    "version": "1.0.21",
     "description": "Generate TypeScript interfaces for Nest.js gRPC from proto files",
     "homepage": "https://github.com/AlexDaSoul/nestjs-proto-gen-ts",
     "author": "Alex Dukhnovskiy <alexdasoul@gmail.com>",
@@ -43,9 +43,9 @@
         "nest.js"
     ],
     "devDependencies": {
+        "@types/protobufjs": "^6.0.0",
         "@grpc/grpc-js": "^1.3.6",
         "@types/node": "^14.0.11",
-        "@types/protobufjs": "^6.0.0",
         "@typescript-eslint/eslint-plugin": "^3.1.0",
         "@typescript-eslint/parser": "^3.1.0",
         "eslint": "^7.2.0",
@@ -61,7 +61,7 @@
         "chalk": "^4.0.0",
         "fs-extra": "^9.0.1",
         "handlebars": "^4.7.6",
-        "protobufjs": "^6.9.0",
+        "protobufjs": "^7.1.2",
         "yargs": "^15.3.1"
     }
 }

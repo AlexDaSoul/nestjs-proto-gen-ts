@@ -16,6 +16,7 @@ export namespace google {
         export interface FileDescriptorProto {
             // file name, relative to root of source tree
             name?: string;
+            // e.g. &quot;foo&quot;, &quot;foo.bar&quot;, etc.
             package?: string;
             // Names of files imported by this file.
             dependency?: string[];
@@ -123,6 +124,7 @@ export namespace google {
                 TYPE_STRING = 9,
                 // Tag-delimited aggregate.
                 TYPE_GROUP = 10,
+                // Length-delimited aggregate.
                 TYPE_MESSAGE = 11,
                 // New in version 2.
                 TYPE_BYTES = 12,
@@ -246,9 +248,8 @@ export namespace google {
             // Generated classes can be optimized for speed or code size.
             export enum OptimizeMode {
                 // Generate complete code for parsing, serialization,
-            // etc.
                 SPEED = 1,
-                // Use ReflectionOps to implement these methods.
+                // etc.
                 CODE_SIZE = 2,
                 // Generate code using MessageLite and the lite runtime.
                 LITE_RUNTIME = 3,
