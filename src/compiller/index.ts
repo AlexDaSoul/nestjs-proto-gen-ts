@@ -7,6 +7,7 @@ import * as chalk from 'chalk';
 import './handlebars/var-helper';
 import './handlebars/comment-helper';
 import './handlebars/enum-comment-helper';
+import './handlebars/if-equal-helper';
 import './handlebars/uncapitalize-hepler';
 import './handlebars/type-helper';
 import './handlebars/default-value-helper';
