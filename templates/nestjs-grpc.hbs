@@ -71,7 +71,11 @@ export interface {{@key}} {
 {{#if comment}}
     {{comment}}
 {{/if}}
+{{#if_equal rule 'required' }}
+    {{@key}}: {{type this}};
+{{else}}
     {{@key}}?: {{type this}};
+{{/if_equal}}
 {{/each}}
 }
 {{#if nested}}
